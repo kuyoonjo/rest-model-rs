@@ -615,7 +615,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "chrono",
- "rest-model-macro",
+ "rest-model-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_json",
 ]
@@ -628,6 +628,17 @@ dependencies = [
  "quote",
  "serde",
  "serde_json",
+ "syn",
+]
+
+[[package]]
+name = "rest-model-macro"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1050fd4c0163e05480d1c83e8a9c27486b19ddda4dcce3ab1aa3ddabc102baa9"
+dependencies = [
+ "proc-macro2",
+ "quote",
  "syn",
 ]
 
