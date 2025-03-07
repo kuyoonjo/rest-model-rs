@@ -200,7 +200,7 @@ dependencies = [
 name = "example"
 version = "0.1.0"
 dependencies = [
- "rest-model",
+ "rest-model 0.1.0",
  "rest-model-postgres",
  "serde",
  "serde_json",
@@ -599,6 +599,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "rest-model"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6923058fa0a47998e772e0e131cd7d9e652d98777715a1c1331d176929aa732c"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "rest-model-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "rest-model-macro"
 version = "0.1.0"
 dependencies = [
@@ -631,7 +644,7 @@ dependencies = [
  "hex",
  "once_cell",
  "rand",
- "rest-model",
+ "rest-model 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_json",
  "tokio",
