@@ -1,3 +1,3 @@
 [workspace]
 resolver = "2"
-members = ["rest-model", "rest-model-macro", "rest-model-postgres"]
+members = [ "example","rest-model", "rest-model-macro", "rest-model-postgres"]

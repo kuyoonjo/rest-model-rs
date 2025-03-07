@@ -8,7 +8,13 @@ pub trait DbClient<T>: Sync
 where
     T: RestModel,
 {
-    fn init(&self, db_name: &str, table_name: &str) -> impl std::future::Future<Output = Result<(), Error>>;
+    fn generate_id(&self) -> String;
+
+    fn init(
+        &self,
+        db_name: &str,
+        table_name: &str,
+    ) -> impl std::future::Future<Output = Result<(), Error>>;
 
     /// GET /resources/:id
     fn select_by_id(

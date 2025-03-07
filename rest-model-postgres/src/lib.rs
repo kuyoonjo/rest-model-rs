@@ -1,6 +1,6 @@
 use anyhow::{bail, Result};
 use bb8_postgres::{bb8::Pool, tokio_postgres::NoTls, PostgresConnectionManager};
-use bson::oid::ObjectId;
+use oid::ObjectId;
 use rest_model::{
     pagination::{Pagination, PaginationParams},
     DbClient, DeleteParams, DeleteResult, Doc, PaginationResult, PatchParams, RestModel,
@@ -11,6 +11,8 @@ use tokio_postgres::types::ToSql;
 
 mod query;
 pub use query::*;
+use tracing::debug;
+mod oid;
 
 pub struct Db {
     pub pool: Pool<PostgresConnectionManager<NoTls>>,
@@ -22,13 +24,13 @@ impl Db {
         let pool = Pool::builder().max_size(10).build(manager).await?;
         Ok(Self { pool })
     }
-
-    pub fn generate_id() -> String {
-        ObjectId::new().to_string()
-    }
 }
 
 impl<T: RestModel> DbClient<T> for Db {
+    fn generate_id(&self) -> String {
+        ObjectId::new().to_hex()
+    }
+
     async fn init(
         &self,
         db_name: &str,
@@ -120,14 +122,14 @@ impl<T: RestModel> DbClient<T> for Db {
         let conn = self.pool.get().await?;
         let args: Vec<&(dyn ToSql + Sync)> =
             bindings.iter().map(|v| v.as_ref()).collect::<Vec<_>>();
-        println!("args: {:?}", args);
-        println!("total_sql: {}", total_sql);
+        debug!("args: {:?}", args);
+        debug!("total_sql: {}", total_sql);
         let row = conn.query_one(&total_sql, &args).await?;
         let total_count: i64 = row.get(0);
         let total_count = total_count as u32;
 
         let items = if total_count > 0 {
-            println!("query_sql: {}", query_sql);
+            debug!("query_sql: {}", query_sql);
             let row = conn.query(&query_sql, &args).await?;
             let mut items = Vec::new();
             for row in row {
@@ -191,7 +193,7 @@ impl<T: RestModel> DbClient<T> for Db {
             RETURNING (xmax = 0) AS inserted;",
         );
 
-        println!("{}", query);
+        debug!("{}", query);
 
         let conn = self.pool.get().await?;
         let args_refs: Vec<&(dyn ToSql + Sync)> = args.iter().map(|x| x.as_ref()).collect();
@@ -251,8 +253,8 @@ impl<T: RestModel> DbClient<T> for Db {
         args.append(&mut bindings);
 
         // 4️⃣ 执行 SQL
-        println!("{}", query);
-        println!("{:?}", args);
+        debug!("{}", query);
+        debug!("{:?}", args);
         let args_refs: Vec<&(dyn ToSql + Sync)> = args.iter().map(|x| x.as_ref()).collect();
         let conn = self.pool.get().await?;
         let rows = conn.query(&query, &args_refs[..]).await?;

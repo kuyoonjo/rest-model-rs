@@ -11,3 +11,4 @@ pub use doc::*;
 pub use params::*;
 pub use response::*;
 pub use rest_model::*;
+pub use rest_model_macro::*;

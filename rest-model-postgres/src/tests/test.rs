@@ -33,10 +33,9 @@ impl RestModel for User {
 
 #[test]
 fn init() {
+    let uri = &std::env::var("DATABASE_URL").unwrap();
     tokio::runtime::Runtime::new().unwrap().block_on(async {
-        let client = Db::try_new("postgres://kuyoonjo:tokoshie0080@localhost:5432/mydb")
-            .await
-            .unwrap();
+        let client = Db::try_new(uri).await.unwrap();
         User::init(&client).await.unwrap();
         let tom = Doc {
             _id: "67c707bc698b8e529f994670".to_string(),
@@ -87,10 +86,9 @@ fn init() {
 
 #[test]
 fn update() {
+    let uri = &std::env::var("DATABASE_URL").unwrap();
     tokio::runtime::Runtime::new().unwrap().block_on(async {
-        let client = Db::try_new("postgres://kuyoonjo:tokoshie0080@localhost:5432/mydb")
-            .await
-            .unwrap();
+        let client = Db::try_new(uri).await.unwrap();
         User::patch(
             &client,
             &PatchParams {
@@ -125,10 +123,9 @@ fn update() {
 
 #[test]
 fn delete() {
+    let uri = &std::env::var("DATABASE_URL").unwrap();
     tokio::runtime::Runtime::new().unwrap().block_on(async {
-        let client = Db::try_new("postgres://kuyoonjo:tokoshie0080@localhost:5432/mydb")
-            .await
-            .unwrap();
+        let client = Db::try_new(uri).await.unwrap();
         User::delete(
             &client,
             &DeleteParams {
@@ -142,10 +139,9 @@ fn delete() {
 }
 #[test]
 fn get_with_id() {
+    let uri = &std::env::var("DATABASE_URL").unwrap();
     tokio::runtime::Runtime::new().unwrap().block_on(async {
-        let client = Db::try_new("postgres://kuyoonjo:tokoshie0080@localhost:5432/mydb")
-            .await
-            .unwrap();
+        let client = Db::try_new(uri).await.unwrap();
         let doc = User::get_with_id(&client, "67c707bc698b8e529f994670")
             .await
             .unwrap();
@@ -155,10 +151,9 @@ fn get_with_id() {
 
 #[test]
 fn get() {
+    let uri = &std::env::var("DATABASE_URL").unwrap();
     tokio::runtime::Runtime::new().unwrap().block_on(async {
-        let client = Db::try_new("postgres://kuyoonjo:tokoshie0080@localhost:5432/mydb")
-            .await
-            .unwrap();
+        let client = Db::try_new(uri).await.unwrap();
         let json = json!({
             "filter": {
                "Or": [
@@ -170,15 +165,11 @@ fn get() {
             "limit": 2,
             "page": 1,
             "sort": "+age",
-        }).into();
+        })
+        .into();
         let pagination = serde_json::from_value::<PaginationParams>(json).unwrap();
         println!("{:#?}", pagination);
-        let doc = User::get(
-            &client,
-            &pagination,
-        )
-        .await
-        .unwrap();
+        let doc = User::get(&client, &pagination).await.unwrap();
         println!("{:#?}", doc);
     });
 }
