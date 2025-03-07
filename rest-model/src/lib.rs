@@ -1,14 +1,13 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+mod db_client;
+mod doc;
+pub mod method;
+pub mod pagination;
+mod params;
+mod response;
+mod rest_model;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use db_client::*;
+pub use doc::*;
+pub use params::*;
+pub use response::*;
+pub use rest_model::*;
