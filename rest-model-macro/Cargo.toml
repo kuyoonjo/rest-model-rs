@@ -2,6 +2,12 @@
 name = "rest-model-macro"
 version = "0.1.0"
 edition = "2021"
+authors = [ "kuyoonjo" ]
+description = "macro for crate rest-model"
+license = "MIT"
+repository = "https://github.com/kuyoonjo/rest-model-rs.git"
+keywords = ["rest", "model", "rest-model"]
+readme = "README.md"
 
 [dependencies]
 proc-macro2 = "1.0.86"
