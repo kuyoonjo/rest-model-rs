@@ -56,7 +56,7 @@ where
 {
     fn put(
         client: &Db,
-        items: Vec<Doc<T>>,
+        items: &[Doc<T>],
     ) -> impl std::future::Future<Output = Result<UpsertResult, Error>> {
         async {
             client

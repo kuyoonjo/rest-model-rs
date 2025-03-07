@@ -201,7 +201,7 @@ name = "example"
 version = "0.1.0"
 dependencies = [
  "rest-model 0.1.0",
- "rest-model-postgres",
+ "rest-model-postgres 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde",
  "serde_json",
  "tokio",
@@ -590,6 +590,8 @@ dependencies = [
 [[package]]
 name = "rest-model"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6923058fa0a47998e772e0e131cd7d9e652d98777715a1c1331d176929aa732c"
 dependencies = [
  "anyhow",
  "chrono",
@@ -600,9 +602,7 @@ dependencies = [
 
 [[package]]
 name = "rest-model"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6923058fa0a47998e772e0e131cd7d9e652d98777715a1c1331d176929aa732c"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "chrono",
@@ -644,7 +644,28 @@ dependencies = [
  "hex",
  "once_cell",
  "rand",
- "rest-model 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rest-model 0.1.0",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tokio-postgres",
+ "tracing",
+]
+
+[[package]]
+name = "rest-model-postgres"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e6c67896a3eedddc1b6493d8daae41e7e14b709967444a88d1f9ca6ea14b178e"
+dependencies = [
+ "anyhow",
+ "bb8",
+ "bb8-postgres",
+ "chrono",
+ "hex",
+ "once_cell",
+ "rand",
+ "rest-model 0.1.0",
  "serde",
  "serde_json",
  "tokio",

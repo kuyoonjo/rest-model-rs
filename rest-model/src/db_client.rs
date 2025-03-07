@@ -37,7 +37,7 @@ where
         &self,
         db_name: &str,
         table_name: &str,
-        items: Vec<Doc<T>>,
+        items: &[Doc<T>],
     ) -> impl std::future::Future<Output = Result<UpsertResult, Error>>;
 
     /// PATCH /resources

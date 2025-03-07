@@ -14,6 +14,7 @@ pub use query::*;
 use tracing::debug;
 mod oid;
 
+#[derive(Debug, Clone)]
 pub struct Db {
     pub pool: Pool<PostgresConnectionManager<NoTls>>,
 }
