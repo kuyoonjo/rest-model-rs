@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-rest-model = "0.1.0"
+rest-model = "0.1.1"
 rest-model-postgres = "0.1.0"
 serde = { version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"

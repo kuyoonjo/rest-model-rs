@@ -73,7 +73,7 @@ fn init() {
             _created_at: 0,
             _updated_at: 0,
         };
-        User::put(&client, vec![tom, jerry, spike]).await.unwrap();
+        User::put(&client, &vec![tom, jerry, spike]).await.unwrap();
         // User::patch(&client, &PatchParams {
         //     filter: FilterParams::Where("()")
         //     patch: json!({

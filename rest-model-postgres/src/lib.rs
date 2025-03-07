@@ -165,7 +165,7 @@ impl<T: RestModel> DbClient<T> for Db {
         &self,
         db_name: &str,
         table_name: &str,
-        items: Vec<Doc<T>>,
+        items: &[Doc<T>],
     ) -> Result<UpsertResult> {
         if items.is_empty() {
             return Ok(UpsertResult {
