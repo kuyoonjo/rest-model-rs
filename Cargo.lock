@@ -593,7 +593,7 @@ version = "0.1.1"
 dependencies = [
  "anyhow",
  "chrono",
- "rest-model-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rest-model-macro 0.1.0",
  "serde",
  "serde_json",
 ]
@@ -606,20 +606,9 @@ checksum = "e4d6065e04f1eb59ee1325b251e0bc7be0fc0f2b1efca66cfedab6be9a02d3d3"
 dependencies = [
  "anyhow",
  "chrono",
- "rest-model-macro 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rest-model-macro 0.1.0",
  "serde",
  "serde_json",
-]
-
-[[package]]
-name = "rest-model-macro"
-version = "0.1.0"
-dependencies = [
- "proc-macro2",
- "quote",
- "serde",
- "serde_json",
- "syn",
 ]
 
 [[package]]
@@ -630,6 +619,17 @@ checksum = "1050fd4c0163e05480d1c83e8a9c27486b19ddda4dcce3ab1aa3ddabc102baa9"
 dependencies = [
  "proc-macro2",
  "quote",
+ "syn",
+]
+
+[[package]]
+name = "rest-model-macro"
+version = "0.1.1"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "serde",
+ "serde_json",
  "syn",
 ]
 

@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use crate::Condition;
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, Default)]
 pub struct PaginationParams {
     pub page: Option<u32>,
     pub limit: Option<u32>,

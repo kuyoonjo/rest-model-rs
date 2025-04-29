@@ -40,8 +40,8 @@ pub fn rest_model(args: TokenStream, item: TokenStream) -> TokenStream {
                 i += 1;
                 Ok(())
             })?;
-            if i != 3 {
-                return Err(meta.error("rest_model db only support 3 params"));
+            if i != 1 || i != 3 {
+                return Err(meta.error("rest_model db only support 1 or 3 params"));
             }
             Ok(())
         } else if meta.path.is_ident("with") {
@@ -88,16 +88,22 @@ pub fn rest_model(args: TokenStream, item: TokenStream) -> TokenStream {
 
     // Generate CRUD methods based on the configuration
     let mut methods = quote! {
-        impl rest_model::RestModel for #struct_name {
-            fn get_db_name() -> &'static str {
-                #db_name
-            }
-            fn get_table_name() -> &'static str {
-                #table_name
-            }
-        }
         impl rest_model::method::Init<#struct_name, #db> for #struct_name {}
     };
+
+    if db_name.is_some() && table_name.is_some() {
+        methods.extend(quote! {
+            impl rest_model::RestModel for #struct_name {
+                fn get_db_name() -> &'static str {
+                    #db_name
+                }
+                fn get_table_name() -> &'static str {
+                    #table_name
+                }
+            }
+        });
+    }
+
     if get_with_id {
         methods.extend(quote! {
             impl rest_model::method::GetWithId<#struct_name, #db> for #struct_name {}
