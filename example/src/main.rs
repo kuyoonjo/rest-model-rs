@@ -1,3 +1,4 @@
+use once_cell::sync::Lazy;
 use rest_model::{
     Doc,
     method::{Init, Put},
@@ -8,6 +9,14 @@ use serde::{Deserialize, Serialize};
 
 const DB_NAME: &str = "mydb.public";
 const TABLE_NAME: &str = "guest";
+
+static TB_NAME: Lazy<String> = Lazy::new(|| {
+    std::env::var("TABLE_NAME").unwrap_or(TABLE_NAME.to_string())
+});
+
+fn get_table_name() -> &'static str {
+    TB_NAME.as_str()
+}
 
 #[rest_model(db(Db, DB_NAME, TABLE_NAME), with(all))]
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -23,7 +32,7 @@ async fn main() {
     Guest::init(&client).await.unwrap();
     Guest::put(
         &client,
-        vec![
+        &vec![
             Doc::new(
                 &client,
                 Guest {
